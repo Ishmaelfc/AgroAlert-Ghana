@@ -268,54 +268,26 @@ Collected responses provide a pathway toward future ground-truth dataset develop
 
 ---
 
-# Repository Structure
-AgroAlert-Ghana/
+## Repository Structure
 
-├── data/
-│   ├── raw/                         # Original satellite and climate datasets
-│   ├── processed/                   # Cleaned datasets used for modelling
-│   └── README.md                    # Data sources and preparation details
-│
-├── notebooks/
-│   ├── 01_data_exploration.ipynb    # Exploratory data analysis
-│   ├── 02_feature_engineering.ipynb # Environmental feature preparation
-│   ├── 03_model_training.ipynb      # Random Forest and LSTM development
-│   └── 04_model_evaluation.ipynb    # Model comparison and performance analysis
-│
-├── src/
-│   ├── data_processing.py           # Data ingestion and preprocessing pipeline
-│   ├── feature_engineering.py       # Feature extraction and transformation
-│   ├── models.py                    # Machine learning model implementation
-│   ├── ensemble.py                  # Hybrid Random Forest–LSTM ensemble
-│   └── alert_system.py              # Voice and SMS alert generation pipeline
-│
-├── models/
-│   ├── random_forest/               # Trained Random Forest models
-│   ├── lstm/                        # Trained LSTM models
-│   └── ensemble/                    # Hybrid model configurations
-│
-├── figures/
-│   ├── architecture.png             # Overall system architecture
-│   ├── workflow.png                 # Data processing workflow
-│   └── results/                     # Model evaluation visualizations
-│
-├── results/
-│   ├── metrics/                     # Evaluation metrics and comparisons
-│   ├── predictions/                 # Model prediction outputs
-│   └── reports/                     # Generated analysis reports
-│
-├── docs/
-│   ├── methodology.md               # Detailed research methodology
-│   ├── paper.pdf                    # Research manuscript (if permitted)
-│   └── citation.md                  # Citation information
-│
-├── assets/
-│   └── banner.png                   # Repository banner and graphics
-│
-├── requirements.txt                 # Python dependencies
-├── CITATION.cff                     # Citation metadata
-├── LICENSE                          # Repository usage rights
-└── README.md                        # Project documentation
+The repository is organized into modules for data management, model development, evaluation and documentation.
+
+| Folder/File | Description |
+|---|---|
+| data/ | Satellite, climate and processed datasets used in the research |
+| data/raw/ | Original datasets collected from external sources |
+| data/processed/ | Cleaned and prepared datasets used for modelling |
+| notebooks/ | Jupyter notebooks for analysis, experiments and evaluation |
+| src/ | Core Python scripts for data processing, modelling and deployment |
+| models/ | Saved machine learning models and model configurations |
+| figures/ | Research figures, system diagrams and visualization outputs |
+| results/ | Model performance metrics, predictions and analysis reports |
+| docs/ | Research documentation and supporting materials |
+| assets/ | Images and repository graphics |
+| requirements.txt | Python packages required to run the project |
+| CITATION.cff | Citation metadata for academic referencing |
+| LICENSE | Repository usage and distribution terms |
+| README.md | Project overview and documentation |
 
 
 ---
