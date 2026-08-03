@@ -272,15 +272,51 @@ Collected responses provide a pathway toward future ground-truth dataset develop
 AgroAlert-Ghana/
 
 ├── data/
-├── docs/
-├── figures/
-├── models/
+│   ├── raw/                         # Original satellite and climate datasets
+│   ├── processed/                   # Cleaned datasets used for modelling
+│   └── README.md                    # Data sources and preparation details
+│
 ├── notebooks/
-├── results/
+│   ├── 01_data_exploration.ipynb    # Exploratory data analysis
+│   ├── 02_feature_engineering.ipynb # Environmental feature preparation
+│   ├── 03_model_training.ipynb      # Random Forest and LSTM development
+│   └── 04_model_evaluation.ipynb    # Model comparison and performance analysis
+│
 ├── src/
-├── requirements.txt
-├── CITATION.cff
-└── README.md
+│   ├── data_processing.py           # Data ingestion and preprocessing pipeline
+│   ├── feature_engineering.py       # Feature extraction and transformation
+│   ├── models.py                    # Machine learning model implementation
+│   ├── ensemble.py                  # Hybrid Random Forest–LSTM ensemble
+│   └── alert_system.py              # Voice and SMS alert generation pipeline
+│
+├── models/
+│   ├── random_forest/               # Trained Random Forest models
+│   ├── lstm/                        # Trained LSTM models
+│   └── ensemble/                    # Hybrid model configurations
+│
+├── figures/
+│   ├── architecture.png             # Overall system architecture
+│   ├── workflow.png                 # Data processing workflow
+│   └── results/                     # Model evaluation visualizations
+│
+├── results/
+│   ├── metrics/                     # Evaluation metrics and comparisons
+│   ├── predictions/                 # Model prediction outputs
+│   └── reports/                     # Generated analysis reports
+│
+├── docs/
+│   ├── methodology.md               # Detailed research methodology
+│   ├── paper.pdf                    # Research manuscript (if permitted)
+│   └── citation.md                  # Citation information
+│
+├── assets/
+│   └── banner.png                   # Repository banner and graphics
+│
+├── requirements.txt                 # Python dependencies
+├── CITATION.cff                     # Citation metadata
+├── LICENSE                          # Repository usage rights
+└── README.md                        # Project documentation
+
 
 ---
 
