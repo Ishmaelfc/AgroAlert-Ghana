@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "AgroAlert Ghana: AI-Powered Hyperlocal Drought Prediction and Multilingual Voice Alert System for Smallholder Farmers"
+
+authors:
+  - family-names: "Cudjoe"
+    given-names: "Ishmael Fynn"
+
+description: >
+  An artificial intelligence-based drought prediction and farmer alert system
+  integrating satellite remote sensing, climate data and machine learning.
+
+repository-code: "https://github.com/Ishmaelfc/AgroAlert-Ghana"
+
+version: 1.0.0
+
+date-released: 2026
