@@ -1,0 +1,5 @@
+timestamp,farmer_name,phone,community,region,alert_date,ensemble_score,delivery_method,language,response,drought_confirmed,follow_up_sent
+2026-07-01 21:26:22,Kofi Mensah,+233XXXXXXXXX,Ho,,2026-06-24,0.8787976766765415,Voice (Ewe),Ewe,1,True,True
+2026-07-01 21:26:22,Ama Asante,+233XXXXXXXXX,Techiman,,2026-06-24,0.8784289943291088,SMS,English,1,True,True
+2026-07-01 21:26:22,Alhassan Baba,+233XXXXXXXXX,Tamale,,2026-06-24,0.8784374221447122,Voice (Dagbani),Dagbani,2,False,True
+2026-07-01 21:26:22,Efo Agbeko,+233XXXXXXXXX,Ho,,2026-06-24,0.8787976766765415,SMS,English,1,True,True
