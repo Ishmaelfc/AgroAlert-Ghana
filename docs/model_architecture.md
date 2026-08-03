@@ -172,4 +172,4 @@ Future model development will focus on:
 - Larger historical datasets
 - Additional deep learning architectures
 - Continuous retraining using farmer feedback
-- Expansion to additional agricultural regions
+- Expansion to additional agricultural region

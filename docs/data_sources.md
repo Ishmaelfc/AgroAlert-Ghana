@@ -141,5 +141,5 @@ The current study identifies several data limitations:
 - Drought labels rely on proxy environmental indicators.
 - Independent field-based drought records remain limited.
 - Larger farmer feedback datasets are required for future validation.
-
+git
 Future development will focus on integrating additional ground observations and expanding community-level monitoring

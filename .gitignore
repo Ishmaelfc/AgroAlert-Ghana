@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment
+.env
+venv/
+.venv/
+
+# Secrets and credentials
+service_account.json
+*.key
+*.pem
+
+# API keys
+*api_key*
+*secret*
+
+# Large/raw datasets
+data/raw/*.csv
+data/raw/*.json
+
+# Keep processed research datasets
+# (remove this if datasets are too large)
+
+# Model files
+# Keep trained models for reproducibility
+# *.pkl
+# *.pth
+# *.pt
+
+# Logs
+*.log
+scheduler_log.txt
+
+# MATLAB
+*.asv
+*.m~
+
+# OS files
+.DS_Store
+Thumbs.db
