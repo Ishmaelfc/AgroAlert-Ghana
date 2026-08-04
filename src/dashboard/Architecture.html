@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>* { margin: 0; padding: 0; box-sizing: border-box; } body { background: white; }</style>
+</head>
+<body>
+<svg width="900" height="620" viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="900" height="620" fill="white"/>
+  <text x="450" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#0a2e1a">AgroAlert Ghana — System Architecture</text>
+  <text x="450" y="48" text-anchor="middle" font-size="10" fill="#666">Five-Layer Automated Weekly Pipeline</text>
+
+  <!-- Layer labels -->
+  <rect x="8" y="65" width="52" height="110" rx="4" fill="#0a2e1a"/>
+  <text transform="translate(34,170) rotate(-90)" text anchor="middle" font-size="6" font-weight="bold" fill="white"> DATA INGESTION</text>
+  <rect x="8" y="195" width="52" height="80" rx="4" fill="#1a5c35"/>
+  <text transform="translate(34,255) rotate(-90)" text-anchor="middle" font-size="6" font-weight="bold" fill="white"> PROCESSING</text>
+  <rect x="8" y="295" width="52" height="80" rx="4" fill="#2d8653"/>
+  <text transform="translate(34,355) rotate(-90)" text-anchor="middle" font-size="6" font-weight="bold" fill="white">PREDICTION</text>
+  <rect x="8" y="395" width="52" height="110" rx="4" fill="#1a5c35"/>
+  <text transform="translate(34,470) rotate(-90)" text-anchor="middle" font-size="6" font-weight="bold" fill="white">ALERT DELIVERY</text>
+  <rect x="8" y="525" width="52" height="70" rx="4" fill="#0a2e1a"/>
+  <text transform="translate(34,575) rotate(-90)" text-anchor="middle" font-size="6" font-weight="bold" fill="white">FEEDBACK</text>
+
+  <!-- LAYER 1 boxes -->
+  <rect x="75" y="70" width="190" height="95" rx="8" fill="#e8f5ec" stroke="#1a5c35" stroke-width="1.5"/>
+  <text x="170" y="91" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a2e1a">Sentinel-2 (GEE)</text>
+  <text x="170" y="107" text-anchor="middle" font-size="9" fill="#333">NDVI via Bands B8 + B4</text>
+  <text x="170" y="120" text-anchor="middle" font-size="9" fill="#333">Cloud filter: &lt;20% cover</text>
+  <text x="170" y="133" text-anchor="middle" font-size="9" fill="#333">5km buffer per community</text>
+  <text x="170" y="148" text-anchor="middle" font-size="9" fill="#166534" font-style="italic">681 records · 15 communities</text>
+
+  <rect x="285" y="70" width="190" height="95" rx="8" fill="#e8f5ec" stroke="#1a5c35" stroke-width="1.5"/>
+  <text x="380" y="91" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a2e1a">Open-Meteo ERA5</text>
+  <text x="380" y="107" text-anchor="middle" font-size="9" fill="#333">Rainfall · Temp max/min</text>
+  <text x="380" y="120" text-anchor="middle" font-size="9" fill="#333">Humidity · ET0</text>
+  <text x="380" y="133" text-anchor="middle" font-size="9" fill="#333">Daily historical reanalysis</text>
+  <text x="380" y="148" text-anchor="middle" font-size="9" fill="#166534" font-style="italic">10,950 records · 15 communities</text>
+
+  <rect x="495" y="70" width="190" height="95" rx="8" fill="#e8f5ec" stroke="#1a5c35" stroke-width="1.5"/>
+  <text x="590" y="91" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a2e1a">MODIS MOD11A2 (GEE)</text>
+  <text x="590" y="107" text-anchor="middle" font-size="9" fill="#333">Land Surface Temperature</text>
+  <text x="590" y="120" text-anchor="middle" font-size="9" fill="#333">x0.02 - 273.15 K to C</text>
+  <text x="590" y="133" text-anchor="middle" font-size="9" fill="#333">8-day composite · 1km res</text>
+  <text x="590" y="148" text-anchor="middle" font-size="9" fill="#166534" font-style="italic">1,150 records · 15 communities</text>
+
+  <rect x="705" y="70" width="170" height="95" rx="8" fill="#0a2e1a"/>
+  <text x="790" y="91" text-anchor="middle" font-size="11" font-weight="bold" fill="white">15 Communities</text>
+  <text x="790" y="108" text-anchor="middle" font-size="8.5" fill="#a8d5b5">All 16 Ghana regions</text>
+  <text x="790" y="121" text-anchor="middle" font-size="8.5" fill="#a8d5b5">Tamale · Ho · Kumasi</text>
+  <text x="790" y="134" text-anchor="middle" font-size="8.5" fill="#a8d5b5">Bolgatanga · Techiman</text>
+  <text x="790" y="147" text-anchor="middle" font-size="8.5" fill="#a8d5b5">+ 10 more communities</text>
+  <text x="790" y="160" text-anchor="middle" font-size="8" fill="#4caf70" font-style="italic">10 food crops covered</text>
+
+  <!-- Arrows L1 to L2 -->
+  <line x1="170" y1="165" x2="170" y2="192" stroke="#1a5c35" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="380" y1="165" x2="380" y2="192" stroke="#1a5c35" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="590" y1="165" x2="590" y2="192" stroke="#1a5c35" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- LAYER 2 -->
+  <rect x="75" y="197" width="610" height="70" rx="8" fill="#dcfce7" stroke="#2d8653" stroke-width="1.5"/>
+  <text x="380" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a2e1a">Data Processing and Feature Engineering (pandas · NumPy · scikit-learn)</text>
+  <text x="190" y="237" text-anchor="middle" font-size="9" fill="#333">Weekly resampling</text>
+  <text x="190" y="250" text-anchor="middle" font-size="9" fill="#333">Linear interpolation</text>
+  <text x="390" y="237" text-anchor="middle" font-size="9" fill="#333">NDVI Anomaly · Rainfall Deficit · Water Balance</text>
+  <text x="390" y="250" text-anchor="middle" font-size="9" fill="#333">SPEI Proxy · Land Surface Temperature</text>
+  <text x="580" y="237" text-anchor="middle" font-size="9" fill="#333">1,575 weekly records</text>
+  <text x="580" y="250" text-anchor="middle" font-size="9" fill="#333">Zero missing values</text>
+
+  <!-- Arrow L2 to L3 -->
+  <line x1="380" y1="267" x2="380" y2="292" stroke="#2d8653" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- LAYER 3 -->
+  <rect x="75" y="297" width="290" height="72" rx="8" fill="#bbf7d0" stroke="#2d8653" stroke-width="1.5"/>
+  <text x="220" y="317" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a2e1a">Random Forest Classifier</text>
+  <text x="220" y="333" text-anchor="middle" font-size="9" fill="#333">200 estimators · max depth 10</text>
+  <text x="220" y="346" text-anchor="middle" font-size="9" fill="#333">Balanced class weights · 13 features</text>
+  <text x="220" y="360" text-anchor="middle" font-size="9" fill="#166534" font-weight="bold">AUC-ROC: 0.999 · Precision/Recall: 0.83</text>
+
+  <text x="377" y="337" text-anchor="middle" font-size="22" font-weight="bold" fill="#2d8653">+</text>
+
+  <rect x="395" y="297" width="290" height="72" rx="8" fill="#bbf7d0" stroke="#2d8653" stroke-width="1.5"/>
+  <text x="540" y="317" text-anchor="middle" font-size="11" font-weight="bold" fill="#0a2e1a">Rule-Based Drought Score</text>
+  <text x="540" y="333" text-anchor="middle" font-size="9" fill="#333">SPEI &lt; -1.0: +0.40 | NDVI anom &lt; -0.05: +0.30</text>
+  <text x="540" y="346" text-anchor="middle" font-size="9" fill="#333">Rainfall deficit &lt; -10mm: +0.20</text>
+  <text x="540" y="360" text-anchor="middle" font-size="9" fill="#333">LST &gt; 38 degrees C: +0.10</text>
+
+  <rect x="705" y="297" width="170" height="72" rx="8" fill="#0a2e1a"/>
+  <text x="790" y="317" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Ensemble Score</text>
+  <text x="790" y="333" text-anchor="middle" font-size="9" fill="#a8d5b5">0.6 x RF + 0.4 x Rule</text>
+  <text x="790" y="347" text-anchor="middle" font-size="9" fill="#a8d5b5">Alert if score &gt;= 0.65</text>
+  <text x="790" y="362" text-anchor="middle" font-size="9" fill="#4caf70" font-weight="bold">26 alerts triggered</text>
+
+  <line x1="685" y1="333" x2="703" y2="333" stroke="#2d8653" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Arrow ensemble to Layer 4 -->
+  <line x1="790" y1="369" x2="790" y2="385" stroke="#2d8653" stroke-width="1.5"/>
+  <line x1="790" y1="385" x2="450" y2="385" stroke="#2d8653" stroke-width="1.5"/>
+  <line x1="450" y1="385" x2="450" y2="392" stroke="#2d8653" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- LAYER 4 -->
+   <rect x="75" y="397" width="250" height="100" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="200" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#1d4ed8">SMS Alert (English)</text>
+  <text x="200" y="434" text-anchor="middle" font-size="9" fill="#333">For literate farmers</text>
+  <text x="200" y="447" text-anchor="middle" font-size="9" fill="#333">Community · Risk score · Crops</text>
+  <text x="200" y="460" text-anchor="middle" font-size="9" fill="#333">Recommended actions</text>
+  <text x="200" y="474" text-anchor="middle" font-size="9" fill="#333">Africa's Talking API</text>
+  <text x="200" y="489" text-anchor="middle" font-size="8" fill="#666" font-style="italic">MTN · Vodafone · AirtelTigo</text>
+
+  <rect x="345" y="397" width="250" height="100" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="470" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#6d28d9">Voice Alert (Local Language)</text>
+  <text x="470" y="434" text-anchor="middle" font-size="9" fill="#333">For low-literacy farmers</text>
+  <text x="470" y="447" text-anchor="middle" font-size="9" fill="#333">Twi · Ewe · Dagbani</text>
+  <text x="470" y="460" text-anchor="middle" font-size="9" fill="#333">Any basic phone — no smartphone</text>
+  <text x="470" y="474" text-anchor="middle" font-size="9" fill="#333">Africa's Talking API · IVR</text>
+  <text x="470" y="489" text-anchor="middle" font-size="8" fill="#666" font-style="italic">Keypress feedback collection</text>
+
+  <rect x="615" y="397" width="260" height="100" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="745" y="418" text-anchor="middle" font-size="11" font-weight="bold" fill="#b45309">Extension Officer Dashboard</text>
+  <text x="745" y="434" text-anchor="middle" font-size="9" fill="#333">Ghana risk map · Alert history</text>
+  <text x="745" y="447" text-anchor="middle" font-size="9" fill="#333">Farmer registry · Analytics</text>
+  <text x="745" y="460" text-anchor="middle" font-size="9" fill="#333">Sensor data · AI model panel</text>
+  <text x="745" y="474" text-anchor="middle" font-size="9" fill="#333">Chart.js · Single HTML file</text>
+  <text x="745" y="489" text-anchor="middle" font-size="8" fill="#666" font-style="italic">No server required</text>
+
+  <!-- Arrows L4 to L5 -->
+  <line x1="200" y1="497" x2="200" y2="522" stroke="#1a5c35" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="470" y1="497" x2="470" y2="522" stroke="#1a5c35" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- LAYER 5 -->
+  <rect x="75" y="527" width="610" height="65" rx="8" fill="#0a2e1a"/>
+  <text x="380" y="548" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Farmer Ground-Truth Feedback Loop and Weekly Model Retraining</text>
+  <text x="220" y="565" text-anchor="middle" font-size="9" fill="#a8d5b5">7-day verification callback</text>
+  <text x="220" y="578" text-anchor="middle" font-size="9" fill="#a8d5b5">"Did drought affect your farm?"</text>
+  <text x="430" y="565" text-anchor="middle" font-size="9" fill="#a8d5b5">Press 1 = YES · Press 2 = NO</text>
+  <text x="430" y="578" text-anchor="middle" font-size="9" fill="#a8d5b5">SMS reply for literate farmers</text>
+  <text x="625" y="565" text-anchor="middle" font-size="9" fill="#4caf70">Label update in master dataset</text>
+  <text x="625" y="578" text-anchor="middle" font-size="9" fill="#4caf70">RF model retrained weekly</text>
+
+  <!-- Scheduler -->
+  <rect x="705" y="527" width="170" height="65" rx="8" fill="#1a5c35"/>
+  <text x="790" y="548" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Weekly Scheduler</text>
+  <text x="790" y="563" text-anchor="middle" font-size="9" fill="#a8d5b5">Python schedule library</text>
+  <text x="790" y="576" text-anchor="middle" font-size="9" fill="#a8d5b5">Every Monday 08:00 AM</text>
+  <text x="790" y="589" text-anchor="middle" font-size="8" fill="#4caf70">7 notebooks automated</text>
+
+  <!-- Feedback arrow back up -->
+   <path d="M 790 527 L 790 505 L 875 505 L 875 333 L 877 333" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#arrRed)"/>
+  <text x="858" y="425" text-anchor="middle" font-size="8" fill="#dc2626" font-weight="bold">Ground</text>
+  <text x="858" y="436" text-anchor="middle" font-size="8" fill="#dc2626" font-weight="bold">Truth</text>
+
+  <!-- Arrow definitions -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1a5c35"/>
+    </marker>
+    <marker id="arrRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+</svg>
+</body>
+</html>
