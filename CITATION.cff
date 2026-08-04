@@ -4,13 +4,33 @@ title: "AgroAlert Ghana: AI-Powered Hyperlocal Drought Prediction and Multilingu
 authors:
   - family-names: "Cudjoe"
     given-names: "Ishmael Fynn"
+  - family-names: "Duah"
+    given-names: "Anastasia Oheneba"
 
 description: >
   An artificial intelligence-based drought prediction and farmer alert system
-  integrating satellite remote sensing, climate data and machine learning.
+  integrating satellite remote sensing, climate data, machine learning models,
+  multilingual communication technologies and farmer feedback mechanisms.
 
 repository-code: "https://github.com/Ishmaelfc/AgroAlert-Ghana"
 
+identifiers:
+  - type: "url"
+    value: "https://ssrn.com/abstract=7230150"
+
+keywords:
+  - artificial intelligence
+  - drought prediction
+  - machine learning
+  - remote sensing
+  - climate resilience
+  - agriculture
+  - Ghana
+  - smallholder farmers
+  - early warning systems
+
 version: 1.0.0
 
-date-released: 2026
+date-released: 2026-08-04
+
+license: "All Rights Reserved"
